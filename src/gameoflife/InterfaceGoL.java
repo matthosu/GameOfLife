@@ -8,10 +8,12 @@ package gameoflife;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -44,17 +46,17 @@ public class InterfaceGoL extends javax.swing.JFrame {
     {
 
         try{
-            amountOfRows = Integer.parseInt(jTextField1.getText());
+            amountOfRows = Integer.parseInt(txtFldWidth.getText());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "There is no number in \"width\" field", "Error", JOptionPane.ERROR_MESSAGE);
         }
         try{
-            amountInRow = Integer.parseInt(jTextField2.getText());
+            amountInRow = Integer.parseInt(txtFldHeight.getText());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "There is no number in \"height\" field", "Error", JOptionPane.ERROR_MESSAGE);
         }
         try{
-            timeBeetweenStages = Double.parseDouble(jTextField3.getText());
+            timeBeetweenStages = Double.parseDouble(txtFldTime.getText());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "There is no number in \"Time for Stage\" field", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -64,8 +66,8 @@ public class InterfaceGoL extends javax.swing.JFrame {
             spaceToPlay.add(new ArrayList());
         }
         playground = new StructureGoL(amountOfRows,amountInRow);
-        int widthOfElement = jPanel1.getWidth()/amountOfRows;
-        int heightOfElement = jPanel1.getHeight()/amountInRow;
+        int widthOfElement = panelPlayground.getWidth()/amountOfRows;
+        int heightOfElement = panelPlayground.getHeight()/amountInRow;
         for(int rows = 0; rows < amountOfRows; rows++)
         {
             for(int cells = 0; cells < amountInRow; cells++)
@@ -77,7 +79,7 @@ public class InterfaceGoL extends javax.swing.JFrame {
                 newlyAdded.setBackground(Color.BLACK);
                 newlyAdded.setOpaque(true);
                 spaceToPlay.get(rows).add(newlyAdded);
-                jPanel1.add(newlyAdded);
+                panelPlayground.add(newlyAdded);
                 
             }
         }
@@ -90,7 +92,7 @@ public class InterfaceGoL extends javax.swing.JFrame {
     }
     public void clear()
     {
-        jPanel1.removeAll();
+        panelPlayground.removeAll();
     }
     
     
@@ -98,6 +100,10 @@ public class InterfaceGoL extends javax.swing.JFrame {
     public void nextStage()
     {
         playground.nextLivingStage();
+        recolor();
+    }
+    public void recolor()
+    {
         boolean[][] board = playground.getBoard();
         for(int row = 0; row < board.length; row++)
         {
@@ -122,78 +128,113 @@ public class InterfaceGoL extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        txtFldWidth = new javax.swing.JTextField();
+        txtFldHeight = new javax.swing.JTextField();
+        buttonExit = new javax.swing.JButton();
+        buttonReset = new javax.swing.JButton();
+        jLabelWidtht = new javax.swing.JLabel();
+        jLabelHeight = new javax.swing.JLabel();
+        txtFldTime = new javax.swing.JTextField();
+        jLabelTime = new javax.swing.JLabel();
+        jLabelSeconds = new javax.swing.JLabel();
+        buttonStarPause = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel1 = new javax.swing.JPanel();
+        panelPlayground = new javax.swing.JPanel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        Save = new javax.swing.JMenuItem();
+        SaveAs = new javax.swing.JMenuItem();
+        LoadFile = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextField1.setText("20");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtFldWidth.setText("20");
+        txtFldWidth.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtFldWidthActionPerformed(evt);
             }
         });
 
-        jTextField2.setText("20");
+        txtFldHeight.setText("20");
 
-        jButton1.setText("Exit");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonExit.setText("Exit");
+        buttonExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buttonExitActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Reset");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonReset.setText("Reset");
+        buttonReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                buttonResetActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Widtht");
+        jLabelWidtht.setText("Widtht");
 
-        jLabel2.setText("Height");
+        jLabelHeight.setText("Height");
 
-        jTextField3.setText("2");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        txtFldTime.setText("2");
+        txtFldTime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                txtFldTimeActionPerformed(evt);
             }
         });
 
-        jLabel4.setText("Time for stage");
+        jLabelTime.setText("Time for stage");
 
-        jLabel5.setText("sec.");
+        jLabelSeconds.setText("sec.");
 
-        jButton3.setText("Start");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        buttonStarPause.setText("Start");
+        buttonStarPause.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                buttonStarPauseActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 322, Short.MAX_VALUE)
+        javax.swing.GroupLayout panelPlaygroundLayout = new javax.swing.GroupLayout(panelPlayground);
+        panelPlayground.setLayout(panelPlaygroundLayout);
+        panelPlaygroundLayout.setHorizontalGroup(
+            panelPlaygroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 336, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 266, Short.MAX_VALUE)
+        panelPlaygroundLayout.setVerticalGroup(
+            panelPlaygroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 282, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(jPanel1);
+        jScrollPane1.setViewportView(panelPlayground);
+
+        jMenu1.setText("File");
+
+        Save.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        Save.setText("Save");
+        Save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveActionPerformed(evt);
+            }
+        });
+        jMenu1.add(Save);
+
+        SaveAs.setText("Save as");
+        jMenu1.add(SaveAs);
+
+        LoadFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        LoadFile.setText("Load File");
+        LoadFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoadFileActionPerformed(evt);
+            }
+        });
+        jMenu1.add(LoadFile);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -201,32 +242,31 @@ public class InterfaceGoL extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(buttonExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(buttonReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(buttonStarPause, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabelTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabelHeight, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(txtFldTime, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabelSeconds)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jLabel5)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap())))))
+                                .addComponent(jLabelWidtht)
+                                .addGap(27, 27, 27))
+                            .addComponent(txtFldWidth, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtFldHeight, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,68 +274,94 @@ public class InterfaceGoL extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(jLabel1)
+                        .addComponent(jLabelWidtht)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtFldWidth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)
-                        .addComponent(jLabel2)
+                        .addComponent(jLabelHeight)
                         .addGap(2, 2, 2)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtFldHeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelTime, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3)
+                            .addComponent(txtFldTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelSeconds))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                        .addComponent(buttonStarPause)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(buttonReset)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
+                        .addComponent(buttonExit))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void txtFldTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFldTimeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_txtFldTimeActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtFldWidthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFldWidthActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtFldWidthActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void buttonStarPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStarPauseActionPerformed
         synchronized(lock){// TODO add your handling code here:
             if (isRunning)
             {
                 isRunning = false;
-                jButton3.setText("Start");
+                buttonStarPause.setText("Start");
             }else{
                 isRunning = true;
-                jButton3.setText("Pause");
+                buttonStarPause.setText("Pause");
             }
             lock.notify();
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_buttonStarPauseActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void buttonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonResetActionPerformed
         synchronized(lock){// TODO add your handling code here:
             clear();
             createView();
             lock.notify();
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_buttonResetActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void buttonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExitActionPerformed
         // TODO add your handling code here:
         close();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_buttonExitActionPerformed
+
+    private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
+        JFileChooser chooseFile = new JFileChooser();
+        if(chooseFile.showSaveDialog(this) == JFileChooser.APPROVE_OPTION)
+        {
+            FileService.writeToMyFile(playground, chooseFile.getSelectedFile());
+        }
+    }//GEN-LAST:event_SaveActionPerformed
+
+    private void LoadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadFileActionPerformed
+        JFileChooser chooseFile = new JFileChooser();
+        if(chooseFile.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
+        {
+            try {
+                StructureGoL board = new StructureGoL(FileService.loadFromFile(chooseFile.getSelectedFile()));
+                txtFldWidth.setText(Integer.toString(board.getWidth()));
+                txtFldHeight.setText(Integer.toString(board.getHeight()));
+                clear();
+                createView();
+                playground = board;
+                recolor();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Trouble with reading file, please try again");
+            }
+        }
+    }//GEN-LAST:event_LoadFileActionPerformed
     public double timeBeetweenStages()
     {
         return timeBeetweenStages;
@@ -370,17 +436,23 @@ public class InterfaceGoL extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuItem LoadFile;
+    private javax.swing.JMenuItem Save;
+    private javax.swing.JMenuItem SaveAs;
+    private javax.swing.JButton buttonExit;
+    private javax.swing.JButton buttonReset;
+    private javax.swing.JButton buttonStarPause;
+    private javax.swing.JLabel jLabelHeight;
+    private javax.swing.JLabel jLabelSeconds;
+    private javax.swing.JLabel jLabelTime;
+    private javax.swing.JLabel jLabelWidtht;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JPanel panelPlayground;
+    private javax.swing.JTextField txtFldHeight;
+    private javax.swing.JTextField txtFldTime;
+    private javax.swing.JTextField txtFldWidth;
     // End of variables declaration//GEN-END:variables
 }

@@ -92,6 +92,14 @@ public class StructureGoL {
         }
         spaceToLive = nextStageBoard;
     }
+    public int getWidth()
+    {
+        return spaceToLive.length;
+    }
+    public int getHeight()
+    {
+        return spaceToLive[0].length;
+    }
     @Override
     public String toString()
     {
