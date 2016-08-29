@@ -8,6 +8,7 @@ package gameoflife;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -16,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -39,7 +41,7 @@ public class InterfaceGoL extends javax.swing.JFrame {
     }
     public void close()
     {
-        dispose();
+        System.exit(0);
     }
     
     public void createView()
@@ -339,14 +341,18 @@ public class InterfaceGoL extends javax.swing.JFrame {
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         JFileChooser chooseFile = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Game Of Life Board Files", "gol", "GameOfLifeBoard");
+        chooseFile.setFileFilter(filter);
         if(chooseFile.showSaveDialog(this) == JFileChooser.APPROVE_OPTION)
         {
-            FileService.writeToMyFile(playground, chooseFile.getSelectedFile());
+            FileService.writeToMyFile(playground, new File(chooseFile.getSelectedFile() + ".gol"));
         }
     }//GEN-LAST:event_SaveActionPerformed
 
     private void LoadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadFileActionPerformed
         JFileChooser chooseFile = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Game Of Life Board Files", "gol", "GameOfLifeBoard");
+        chooseFile.setFileFilter(filter);
         if(chooseFile.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
         {
             try {
@@ -431,7 +437,7 @@ public class InterfaceGoL extends javax.swing.JFrame {
                 }
             }
         };
-        thd.run();
+        thd.start();
     }
 
 
