@@ -67,7 +67,7 @@ public class InterfaceGoL extends javax.swing.JFrame {
         {
             spaceToPlay.add(new ArrayList());
         }
-        playground = new StructureGoL(amountOfRows+2,amountInRow+2);
+        playground = new StructureGoL(amountOfRows+4,amountInRow+4);
         int widthOfElement = panelPlayground.getWidth()/amountOfRows;
         int heightOfElement = panelPlayground.getHeight()/amountInRow;
         for(int rows = 0; rows < amountOfRows; rows++)
@@ -77,7 +77,7 @@ public class InterfaceGoL extends javax.swing.JFrame {
                 
                 JLabel newlyAdded = new JLabel();
                 newlyAdded.setBounds(rows*widthOfElement,cells*heightOfElement,widthOfElement-1,heightOfElement-1);
-                newlyAdded.addMouseListener(new MouseClicker(rows, cells, playground));
+                newlyAdded.addMouseListener(new MouseClicker(rows+2, cells+2, playground));
                 newlyAdded.setBackground(Color.BLACK);
                 newlyAdded.setOpaque(true);
                 spaceToPlay.get(rows).add(newlyAdded);
@@ -107,15 +107,15 @@ public class InterfaceGoL extends javax.swing.JFrame {
     public void recolor()
     {
         boolean[][] board = playground.getBoard();
-        for(int row = 1; row < board.length-1; row++)
+        for(int row = 2; row < board.length-2; row++)
         {
-            for(int cell = 1; cell < board[row].length-1; cell++ )
+            for(int cell = 2; cell < board[row].length-2; cell++ )
             {
                 if(board[row][cell])
                 {
-                    spaceToPlay.get(row-1).get(cell-1).setBackground(Color.WHITE);
+                    spaceToPlay.get(row-2).get(cell-2).setBackground(Color.WHITE);
                 }else
-                    spaceToPlay.get(row-1).get(cell-1).setBackground(Color.BLACK);
+                    spaceToPlay.get(row-2).get(cell-2).setBackground(Color.BLACK);
             }
         }
     }

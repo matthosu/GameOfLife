@@ -11,10 +11,12 @@ package gameoflife;
  */
 public class StructureGoL {
     private boolean[][] spaceToLive; 
+    private static boolean turn;
     public StructureGoL(int sizeX, int sizeY)
     {
         spaceToLive = new boolean[sizeX][sizeY];
-        
+        turn = true;
+
     
     }
     public StructureGoL(boolean[][] space)
@@ -92,15 +94,31 @@ public class StructureGoL {
                 
             }
         }
-        for(int rows = 0; rows < spaceToLive[0].length; rows++)
+        if(turn == true){
+            for(int rows = 0; rows < spaceToLive[0].length; rows++)
+            {
+                nextStageBoard[rows][0] = false;
+                nextStageBoard[rows][spaceToLive[0].length-1] = false;
+            }
+            for(int columns = 0; columns < spaceToLive.length; columns++)
+            {
+                nextStageBoard[0][columns] = false;
+                nextStageBoard[spaceToLive.length-1][columns] = false;
+            }
+            turn = false;
+        }else
         {
-            nextStageBoard[rows][0] = false;
-            nextStageBoard[rows][spaceToLive[0].length-1] = false;
-        }
-        for(int columns = 0; columns < spaceToLive.length; columns++)
-        {
-            nextStageBoard[0][columns] = false;
-            nextStageBoard[spaceToLive.length-1][columns] = false;
+            for(int rows = 0; rows < spaceToLive[0].length; rows++)
+            {
+                nextStageBoard[rows][1] = false;
+                nextStageBoard[rows][spaceToLive[0].length-2] = false;
+            }
+            for(int columns = 0; columns < spaceToLive.length; columns++)
+            {
+                nextStageBoard[1][columns] = false;
+                nextStageBoard[spaceToLive.length-2][columns] = false;
+            }
+            turn = true;
         }
         spaceToLive = nextStageBoard;
     }
