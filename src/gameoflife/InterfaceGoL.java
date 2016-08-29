@@ -67,7 +67,7 @@ public class InterfaceGoL extends javax.swing.JFrame {
         {
             spaceToPlay.add(new ArrayList());
         }
-        playground = new StructureGoL(amountOfRows,amountInRow);
+        playground = new StructureGoL(amountOfRows+2,amountInRow+2);
         int widthOfElement = panelPlayground.getWidth()/amountOfRows;
         int heightOfElement = panelPlayground.getHeight()/amountInRow;
         for(int rows = 0; rows < amountOfRows; rows++)
@@ -107,15 +107,15 @@ public class InterfaceGoL extends javax.swing.JFrame {
     public void recolor()
     {
         boolean[][] board = playground.getBoard();
-        for(int row = 0; row < board.length; row++)
+        for(int row = 1; row < board.length-1; row++)
         {
-            for(int cell = 0; cell < board[row].length; cell++ )
+            for(int cell = 1; cell < board[row].length-1; cell++ )
             {
                 if(board[row][cell])
                 {
-                    spaceToPlay.get(row).get(cell).setBackground(Color.WHITE);
+                    spaceToPlay.get(row-1).get(cell-1).setBackground(Color.WHITE);
                 }else
-                    spaceToPlay.get(row).get(cell).setBackground(Color.BLACK);
+                    spaceToPlay.get(row-1).get(cell-1).setBackground(Color.BLACK);
             }
         }
     }

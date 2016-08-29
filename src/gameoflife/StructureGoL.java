@@ -41,8 +41,10 @@ public class StructureGoL {
     public void nextLivingStage()
     {
         boolean[][] nextStageBoard = new boolean[spaceToLive.length][spaceToLive[0].length];
+        
         for(int XAxis=0; XAxis < spaceToLive.length; XAxis++)
         {
+            
             for(int YAxis=0; YAxis < spaceToLive[0].length; YAxis++)
             {
                 int howManyAlive = 0;
@@ -89,6 +91,16 @@ public class StructureGoL {
                 }
                 
             }
+        }
+        for(int rows = 0; rows < spaceToLive[0].length; rows++)
+        {
+            nextStageBoard[rows][0] = false;
+            nextStageBoard[rows][spaceToLive[0].length-1] = false;
+        }
+        for(int columns = 0; columns < spaceToLive.length; columns++)
+        {
+            nextStageBoard[0][columns] = false;
+            nextStageBoard[spaceToLive.length-1][columns] = false;
         }
         spaceToLive = nextStageBoard;
     }
